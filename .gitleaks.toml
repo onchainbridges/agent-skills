@@ -1,0 +1,38 @@
+# gitleaks config for the advisory second layer of the OB secret gate.
+# Inherits gitleaks' maintained provider ruleset (Anthropic, AWS, GitHub, Google,
+# Slack, ...) and adds OUR own secrets that the default set does not know.
+title = "Onchain Bridges secret gate"
+
+[extend]
+useDefault = true
+
+[[rules]]
+id = "ob-alchemy-key"
+description = "Alchemy API key (URL form)"
+regex = '''(g\.)?alchemy\.com/v2/[A-Za-z0-9_-]{20,}'''
+
+[[rules]]
+id = "ob-infura-key"
+description = "Infura project URL key"
+regex = '''infura\.io/v3/[A-Za-z0-9]{20,}'''
+
+[[rules]]
+id = "ob-signer-token"
+description = "Internal SIGNER_TOKEN value"
+regex = '''(?i)SIGNER_TOKEN["' ]{0,4}[:=][ ]{0,4}["']?[A-Za-z0-9_-]{16,}'''
+
+[[rules]]
+id = "ob-evm-privkey-context"
+description = "EVM private key in key-context (not bare tx/hashes)"
+regex = '''(?i)(private[_-]?key|privkey|deployer[_-]?key|mnemonic)["' ]{0,4}[:=][ "']{0,4}0x[a-fA-F0-9]{64}'''
+
+[allowlist]
+description = "Public on-chain data and lockfiles are not secrets"
+paths = [
+  '''package-lock\.json''',
+  '''yarn\.lock''',
+  '''pnpm-lock\.yaml''',
+  '''Cargo\.lock''',
+  '''\.gitleaks\.toml''',
+  '''scripts/secret-scan-ci\.sh''',
+]
