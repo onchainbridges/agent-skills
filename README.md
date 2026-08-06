@@ -1,5 +1,7 @@
 # Onchain Bridges - agent skills
 
+[![secret-scan](https://github.com/onchainbridges/agent-skills/actions/workflows/secret-scan.yml/badge.svg)](https://github.com/onchainbridges/agent-skills/actions/workflows/secret-scan.yml)
+
 Skills that let AI agents interact with [Onchain Bridges](https://onchainbridges.com), a
 compliance-gated, cross-chain protocol for borrowing stablecoins against tokenized real-world assets
 (real estate, gold, and more).
